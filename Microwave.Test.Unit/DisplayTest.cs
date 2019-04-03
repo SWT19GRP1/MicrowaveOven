@@ -4,7 +4,7 @@ using NUnit.Framework;
 using NSubstitute;
 
 namespace Microwave.Test.Unit
-{
+{ 
     [TestFixture]
     public class DisplayTest
     {
