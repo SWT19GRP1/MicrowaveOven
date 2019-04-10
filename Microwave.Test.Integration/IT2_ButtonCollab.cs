@@ -25,10 +25,10 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            _powerButton = new Button();
-            _startCancelButton = new Button();
-            _timeButton = new Button();
-            _door = new Door();
+            _powerButton = NSubstitute.Substitute.For<IButton>();
+            _startCancelButton = NSubstitute.Substitute.For<IButton>();
+            _timeButton = NSubstitute.Substitute.For<IButton>();
+            _door = NSubstitute.Substitute.For<IDoor>();
             _timer = new Timer();
             _output = Substitute.For<Output>();
             _light = Substitute.For<Light>();
