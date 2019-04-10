@@ -3,6 +3,7 @@ using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
+using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 
 namespace Microwave.Test.Integration
@@ -25,10 +26,10 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            _powerButton = NSubstitute.Substitute.For<IButton>();
-            _startCancelButton = NSubstitute.Substitute.For<IButton>();
-            _timeButton = NSubstitute.Substitute.For<IButton>();
-            _door = NSubstitute.Substitute.For<IDoor>();
+            _powerButton = new Button();
+            _startCancelButton = new Button();
+            _timeButton = new Button();
+            _door = new Door();
             _timer = new Timer();
             _output = Substitute.For<IOutput>();
             _light = Substitute.For<ILight>();
@@ -38,10 +39,15 @@ namespace Microwave.Test.Integration
             _cookController = new CookController(_timer,_display,_powerTube,_sut);
 
         }
-        
-        [Test]
-        public void 
 
+        [Test]
+        public void StartButtonPushedOnceOutputlineIsCalledOnce()
+        {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _output.Received(2).OutputLine(Arg.Any<string>());
+        }
 
 
     }
