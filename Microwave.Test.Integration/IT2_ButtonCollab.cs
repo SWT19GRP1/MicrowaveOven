@@ -21,7 +21,6 @@ namespace Microwave.Test.Integration
             _timeButton = new Button();
             _door = new Door();
         
-  
 
         }
          
