@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="IT1_LightCollab.cs" />
     <Compile Include="IT2_PowerTubeCollab.cs" />
+    <Compile Include="IT3_OutputCollab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
