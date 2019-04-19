@@ -16,7 +16,7 @@ namespace Microwave.Test.Integration
         private IButton _startCancelButton;
         private IDoor _door;
         private IUserInterface _ui;
-        private ICookController _cookController;
+        private CookController _cookController;
         private IPowerTube _powerTube;
         private ITimer _timer;
         private IDisplay _display;
@@ -35,18 +35,30 @@ namespace Microwave.Test.Integration
             _light = Substitute.For<ILight>();
             _display = Substitute.For<IDisplay>();
             _powerTube= new PowerTube(_output);
-            _ui = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
-            _cookController = new CookController(_timer,_display,_powerTube,_ui);
 
+            _cookController = new CookController(_timer, _display, _powerTube);
+            _ui = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _cookController.UI = _ui;
         }
 
         [Test]
         public void PowerButtonPressedOnceWattageIs50()
         {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _output.Received().OutputLine("PowerTube works with 50 %");
+
         }
         [Test]
         public void PowerButtonPressedThriceWattageIs150()
         {
+            _powerButton.Press();
+            _powerButton.Press();
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _output.Received().OutputLine("PowerTube works with 150 %");
         }
         [Test]
         public void WattageIs700PowerButtonPressedOnceWattageIs50()
