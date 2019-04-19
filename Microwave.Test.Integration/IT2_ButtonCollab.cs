@@ -37,8 +37,7 @@ namespace Microwave.Test.Integration
             _cookController = new CookController(_timer,_display,_powerTube,_sut);
 
         }
-         
-
+     
 
 
     }
