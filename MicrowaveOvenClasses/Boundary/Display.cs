@@ -1,4 +1,5 @@
-﻿using MicrowaveOvenClasses.Interfaces;
+﻿
+using MicrowaveOvenClasses.Interfaces;
 
 namespace MicrowaveOvenClasses.Boundary
 {
