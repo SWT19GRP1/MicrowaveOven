@@ -83,9 +83,9 @@ namespace MicrowaveOvenClasses.Controllers
                     myState = States.READY;
                     break;
                 case States.SETTIME:
-                    myDisplay.Clear();
+                    //myDisplay.Clear(); Slettet linje per UC definition
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel, time*60);
+                    myCooker.StartCooking(powerLevel, time*60); //Sender sekunder, forventer millisekunder
                     myState = States.COOKING;
                     break;
                 case States.COOKING:
@@ -121,6 +121,7 @@ namespace MicrowaveOvenClasses.Controllers
                     myState = States.DOOROPEN;
                     break;
                 case States.COOKING:
+                    myDisplay.Clear(); //Ny linje per UC definition
                     myCooker.Stop();
                     powerLevel = 50;
                     time = 1;
