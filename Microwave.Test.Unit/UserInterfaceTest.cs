@@ -246,18 +246,17 @@ namespace Microwave.Test.Unit
             light.Received(1).TurnOff();
         }
 
-        [Test]
-        public void Cooking_CookingIsDone_ClearDisplay()
-        {
-            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            // Now in SetPower
-            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            // Now in SetTime
-            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-            // Now in cooking
-
-            display.Received(1).Clear();
-        }
+        //[Test] Test wrongly assumes that the cooking is done immediately
+        //public void Cooking_CookingIsDone_ClearDisplay()
+        //{
+        //    powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+        //    // Now in SetPower
+        //    timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+        //    // Now in SetTime
+        //    startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+        //    // Now in cooking
+        //    display.Received(1).Clear();
+        //}
 
         [Test]
         public void Cooking_DoorIsOpened_CookerCalled()
