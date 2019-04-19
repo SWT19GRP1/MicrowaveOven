@@ -35,21 +35,21 @@ namespace Microwave.Test.Integration
 
         }
 
-        [Test]
-        public void DoorOpens_OnDoorOpenedWas()
-        {           
-            door.Opened += (o, e) => wasCalled = true;
-            door.Open();
-            Assert.IsTrue(wasCalled);
-        }
+        //[Test]
+        //public void DoorOpens_OnDoorOpenedWas()
+        //{           
+        //    door.Opened += (o, e) => wasCalled = true;
+        //    door.Open();
+        //    Assert.IsTrue(wasCalled);
+        //}
 
-        [Test]
-        public void DoorCloses_OnDoorClosedWasCalled()
-        {
-            door.Closed += (o, e) => wasCalled = true;
-            door.Close();
-            Assert.IsTrue(wasCalled);
-        }
+        //[Test]
+        //public void DoorCloses_OnDoorClosedWasCalled()
+        //{
+        //    door.Closed += (o, e) => wasCalled = true;
+        //    door.Close();
+        //    Assert.IsTrue(wasCalled);
+        //}
 
         [Test]
         public void StartButtonIsPressed_LightTurnsOn()
