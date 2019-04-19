@@ -42,44 +42,62 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void PowerButtonPressedOnceWattageIs50()
+        public void StartButtonIsPressedDuringSetupWith50WattagePowerTubeRunsWith50Watt()
         {
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
-            _output.Received().OutputLine("PowerTube works with 50 %");
+            _output.Received().OutputLine("PowerTube works with 50 W");
 
         }
         [Test]
-        public void PowerButtonPressedThriceWattageIs150()
+        public void StartButtonIsPressedDuringSetupWith150WattagePowerTubeRunsWith150Watt()
         {
             _powerButton.Press();
             _powerButton.Press();
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
-            _output.Received().OutputLine("PowerTube works with 150 %");
+            _output.Received().OutputLine("PowerTube works with 150 W");
         }
         [Test]
         public void WattageIs700PowerButtonPressedOnceWattageIs50()
         {
+            for (int i = 0; i < 14; i++)
+            {
+                _powerButton.Press();
+            }
+
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _output.Received().OutputLine("PowerTube works with 50 W");
         }
         [Test]
         public void CancelButtonIsPressedDuringSetupSettingsAreReset()
         {
-        }
-
-        [Test]
-        public void StartButtonIsPressedDuringSetupWith150WattagePowerTubeRunsWith150Watt()
-        {
+            _powerButton.Press();
+            _powerButton.Press();
+            _powerButton.Press();
+            _startCancelButton.Press();
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _output.Received().OutputLine("PowerTube works with 50 W");
         }
         [Test]
         public void CancelButtonIsPressedDuringCookingPowerTubeTurnedOff()
         {
+            _powerButton.Press();
+            _timeButton.Press();
+            _startCancelButton.Press();
+            _startCancelButton.Press();
+            _output.Received().OutputLine("PowerTube turned off");
         }
         [Test]
         public void CancelButtonIsPressedDuringCookingSettingsAreReset()
         {
+
         }
         [Test]
         public void DoorIsOpenedDuringCookingPowerTubeTurnedOff()
