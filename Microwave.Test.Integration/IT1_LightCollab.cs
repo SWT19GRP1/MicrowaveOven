@@ -90,11 +90,13 @@ namespace Microwave.Test.Integration
             //Arrange
             powerButton.Press();
             timeButton.Press();
-            startCancelButton.Press();
             //Act
+            //Light goes on here, so we have to check the call is not made twice.
+            startCancelButton.Press();
             door.Open();
             //Assert
-            output.Received().OutputLine("Light is turned on");
+            output.Received(1).OutputLine("Light is turned on");
+            output.DidNotReceive().OutputLine("Light is turned off");
         }
     }
 }
