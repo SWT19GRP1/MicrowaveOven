@@ -15,7 +15,7 @@ namespace Microwave.Test.Integration
         private IButton startCancelButton;
         private IButton powerButton;
         private IButton timeButton;
-        private bool wasCalled;
+        //private bool wasCalled;
 
         [SetUp]
         public void Setup()
@@ -31,32 +31,18 @@ namespace Microwave.Test.Integration
             var userInterface = new UserInterface(powerButton,
                 timeButton, startCancelButton,
                 door, Substitute.For<IDisplay>(), light, Substitute.For<ICookController>());
-            wasCalled = false;
 
         }
-
-        //[Test]
-        //public void DoorOpens_OnDoorOpenedWas()
-        //{           
-        //    door.Opened += (o, e) => wasCalled = true;
-        //    door.Open();
-        //    Assert.IsTrue(wasCalled);
-        //}
-
-        //[Test]
-        //public void DoorCloses_OnDoorClosedWasCalled()
-        //{
-        //    door.Closed += (o, e) => wasCalled = true;
-        //    door.Close();
-        //    Assert.IsTrue(wasCalled);
-        //}
 
         [Test]
         public void StartButtonIsPressed_LightTurnsOn()
         {
+            //Arrange
             powerButton.Press();
             timeButton.Press();
+            //Act
             startCancelButton.Press();
+            //Assert
             output.Received().OutputLine("Light is turned on");
         }
 
@@ -66,40 +52,48 @@ namespace Microwave.Test.Integration
             //This is the same test as if the timer is timed out, seen from the Light
             //class perspective. 
         
+            //Arrange
             powerButton.Press();
             timeButton.Press();
             //Power up
             startCancelButton.Press();
-            //power down
+            //power down - Act
             startCancelButton.Press();
-
+            //Assert
             output.Received().OutputLine("Light is turned off");
         }
 
         [Test]
         public void DoorIsOpenedBeforeCooking_LightTurnsOn()
         {
+            //Arrange
+            //Act
             door.Open();
+            //Assert
             output.Received().OutputLine("Light is turned on");
         }
 
         [Test]
         public void DoorIsClosedBeforeCooking_LightTurnsOff()
         {
+            //Arrange
             door.Open();
+            //Act
             door.Close();
-
+            //Assert
             output.Received().OutputLine("Light is turned off");
         }
 
         [Test]
         public void DoorIsOpenedUnderCooking_LightTurnsOn()
         {
+            //Arrange
             powerButton.Press();
             timeButton.Press();
             startCancelButton.Press();
+            //Act
             door.Open();
-
+            //Assert
             output.Received().OutputLine("Light is turned on");
         }
     }
