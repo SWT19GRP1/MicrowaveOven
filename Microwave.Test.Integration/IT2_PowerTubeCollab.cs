@@ -10,7 +10,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
-   [TestFixture]
+    [TestFixture]
     public class IT2_PowerTubeCollab
     {
         private IButton _powerButton;
@@ -36,10 +36,11 @@ namespace Microwave.Test.Integration
             _output = Substitute.For<IOutput>();
             _light = Substitute.For<ILight>();
             _display = Substitute.For<IDisplay>();
-            _powerTube= new PowerTube(_output);
+            _powerTube = new PowerTube(_output);
 
             _cookController = new CookController(_timer, _display, _powerTube);
-            _ui = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light, _cookController);
+            _ui = new UserInterface(_powerButton, _timeButton, _startCancelButton, _door, _display, _light,
+                _cookController);
             _cookController.UI = _ui;
         }
 
@@ -52,6 +53,7 @@ namespace Microwave.Test.Integration
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
 
         }
+
         [Test]
         public void StartButtonIsPressedDuringSetupWith150WattagePowerTubeRunsWith150Watt()
         {
@@ -62,6 +64,7 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("150 W")));
         }
+
         [Test]
         public void WattageIs700PowerButtonPressedOnceWattageIs50()
         {
@@ -73,8 +76,9 @@ namespace Microwave.Test.Integration
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
-            _output.Received().OutputLine(Arg.Is<string>(str=>str.Contains("50 W")));
+            _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
         }
+
         [Test]
         public void CancelButtonIsPressedDuringSetupSettingsAreReset()
         {
@@ -87,6 +91,7 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
         }
+
         [Test]
         public void CancelButtonIsPressedDuringCookingPowerTubeTurnedOff()
         {
@@ -96,6 +101,7 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
+
         [Test]
         public void CancelButtonIsPressedDuringCookingSettingsAreReset()
         {
@@ -108,6 +114,7 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
         }
+
         [Test]
         public void DoorIsOpenedDuringCookingPowerTubeTurnedOff()
         {
@@ -117,6 +124,7 @@ namespace Microwave.Test.Integration
             _door.Open();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
+
         [Test]
         public void DoorIsOpenedDuringCookingSettingsAreReset()
         {
@@ -129,18 +137,22 @@ namespace Microwave.Test.Integration
             _startCancelButton.Press();
             _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
         }
+
         [Test]
-        public void TimerSetTo3SecondsAfter3SecondsPowerTubeTurnedOff()
+        public void TimerSetTo3Minutes_After3Seconds_PowerTubeNotTurnedOff()
         {
             ManualResetEvent pause = new ManualResetEvent(false);
             _powerButton.Press();
             for (int i = 0; i < 3; i++)
             {
                 _timeButton.Press();
-            } 
+            }
+
             _startCancelButton.Press();
             pause.WaitOne(3100);
-            _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
+            _output.DidNotReceive().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
+
+
     }
 }
